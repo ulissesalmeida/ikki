@@ -19,5 +19,7 @@ defmodule Ikki.Room do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> validate_length(:name, max: 40)
+    |> unique_constraint(:name)
   end
 end

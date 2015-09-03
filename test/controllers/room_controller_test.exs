@@ -3,7 +3,7 @@ defmodule Ikki.RoomControllerTest do
 
   alias Ikki.Room
   @valid_attrs %{name: "some content"}
-  @invalid_attrs %{}
+  @invalid_attrs %{name: ""}
 
   setup do
     conn = conn()
@@ -32,7 +32,7 @@ defmodule Ikki.RoomControllerTest do
   end
 
   test "shows chosen resource", %{conn: conn} do
-    room = Repo.insert! %Room{}
+    room = create_room
     conn = get conn, room_path(conn, :show, room)
     assert html_response(conn, 200) =~ "Show room"
   end
@@ -44,28 +44,32 @@ defmodule Ikki.RoomControllerTest do
   end
 
   test "renders form for editing chosen resource", %{conn: conn} do
-    room = Repo.insert! %Room{}
+    room = create_room
     conn = get conn, room_path(conn, :edit, room)
     assert html_response(conn, 200) =~ "Edit room"
   end
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
-    room = Repo.insert! %Room{}
+    room = create_room
     conn = put conn, room_path(conn, :update, room), room: @valid_attrs
     assert redirected_to(conn) == room_path(conn, :show, room)
     assert Repo.get_by(Room, @valid_attrs)
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    room = Repo.insert! %Room{}
+    room = create_room
     conn = put conn, room_path(conn, :update, room), room: @invalid_attrs
     assert html_response(conn, 200) =~ "Edit room"
   end
 
   test "deletes chosen resource", %{conn: conn} do
-    room = Repo.insert! %Room{}
+    room = create_room
     conn = delete conn, room_path(conn, :delete, room)
     assert redirected_to(conn) == room_path(conn, :index)
     refute Repo.get(Room, room.id)
+  end
+
+  defp create_room(room \\ %Room{name: "Java"}) do
+    Repo.insert!(room)
   end
 end

@@ -13,11 +13,21 @@ defmodule Ikki.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :admin do
+    plug BasicAuth,
+      realm: "Admin",
+      username: Application.get_env(:ikki, :admin)[:username],
+      password: Application.get_env(:ikki, :admin)[:password]
+  end
+
   scope "/", Ikki do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+  end
 
+  scope "/admin", Ikki do
+    pipe_through [:browser, :admin]
     resources "/rooms", RoomController
   end
 

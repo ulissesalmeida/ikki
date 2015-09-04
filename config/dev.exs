@@ -39,3 +39,8 @@ config :ikki, Ikki.Repo,
   password: "postgres",
   database: "ikki_dev",
   pool_size: 10
+  
+# Configure the username and password for the admin area.
+config :ikki, :admin,
+  username: 'admin',
+  password: 'secret'

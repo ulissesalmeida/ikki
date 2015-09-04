@@ -19,3 +19,8 @@ config :ikki, Ikki.Repo,
   password: "postgres",
   database: "ikki_test",
   pool: Ecto.Adapters.SQL.Sandbox
+
+# Configure the username and password for the admin area.
+config :ikki, :admin,
+  username: 'admin',
+  password: 'secret'

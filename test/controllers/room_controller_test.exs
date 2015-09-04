@@ -6,7 +6,7 @@ defmodule Ikki.RoomControllerTest do
   @invalid_attrs %{name: ""}
 
   setup do
-    conn = conn()
+    conn = conn() |> put_req_header( "authorization", "Basic " <> Base.encode64("admin:secret"))
     {:ok, conn: conn}
   end
 
@@ -67,6 +67,12 @@ defmodule Ikki.RoomControllerTest do
     conn = delete conn, room_path(conn, :delete, room)
     assert redirected_to(conn) == room_path(conn, :index)
     refute Repo.get(Room, room.id)
+  end
+
+  test "does not have access with unauthorized access" do
+    conn = conn()
+    conn = get conn, room_path(conn, :index)
+    assert response(conn, 401)
   end
 
   defp create_room(room \\ %Room{name: "Java"}) do

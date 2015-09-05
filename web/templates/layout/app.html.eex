@@ -7,17 +7,18 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello Phoenix!</title>
+    <title>Ikki - A Web Chat written in Elixir using Phoenix</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
-    <div class="container" role="main">
+    <div class="container-fluid" role="main">
       <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-        </ul>
-        <span class="logo"></span>
+        <img class='header-logo' src="<%= static_path(@conn, "/images/logo.png") %>" alt="Ikki logo" />
+        <h1>
+          Ikki
+          <small>A Web Chat written in Elixir using Phoenix</small>
+        </h1>
       </div>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>

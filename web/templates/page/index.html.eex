@@ -1,36 +1,16 @@
-<div class="jumbotron">
-  <h2>Welcome to Phoenix!</h2>
-  <p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
-</div>
+<div class="chat-container row">
+  <div class='chat-messages-container'>
+    <div class="chat-messages-board">
+    </div>
 
-<div class="row marketing">
-  <div class="col-lg-6">
-    <h4>Resources</h4>
-    <ul>
-      <li>
-        <a href="http://phoenixframework.org/docs/overview">Guides</a>
-      </li>
-      <li>
-        <a href="http://hexdocs.pm/phoenix">Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-    </ul>
+    <form class='chat-form'>
+      <textarea class='chat-form-input'></textarea>
+
+      <input type="submit" class='btn btn-primary chart-form-send-button'>
+    </form>
   </div>
 
-  <div class="col-lg-6">
-    <h4>Help</h4>
-    <ul>
-      <li>
-        <a href="http://groups.google.com/group/phoenix-talk">Mailing list</a>
-      </li>
-      <li>
-        <a href="http://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">@elixirphoenix</a>
-      </li>
-    </ul>
+  <div class='chat-users-container'>
+    <h1 class='chat-users-title'>Users</h1>
   </div>
 </div>

@@ -1,6 +1,6 @@
-<div class="chat-container row">
+<div class="chat-container row" data-chat>
   <div class='chat-messages-container'>
-    <div class="chat-messages-board" data-messages-board>
+    <div class="chat-messages-board" data-chat-messages>
     </div>
 
     <form class='chat-form' data-chat-form>
@@ -10,7 +10,7 @@
     </form>
   </div>
 
-  <div class='chat-users-container' data-users>
+  <div class='chat-users-container' data-chat-users>
     <h1 class='chat-users-title'>Users</h1>
   </div>
 </div>

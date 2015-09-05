@@ -19,3 +19,14 @@ import "deps/phoenix_html/web/static/js/phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 import socket from "./socket"
+import ChatRoom from "./chat_room"
+
+let chatView = $('[data-chat]')
+
+if (chatView.length) {
+  let user = `Anonymous ${Math.floor(Math.random() * 1000)}`
+  let room = new ChatRoom({ roomId: 'lobby', socket: socket, user: user, context: $('[data-chat]') })
+  
+  socket.connect({token: window.userToken})
+  room.connect()
+}

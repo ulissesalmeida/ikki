@@ -47,11 +47,16 @@ form.link, form.button {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 5px;
+
+  overflow-y: scroll;
 }
 
 .chat-users-container {
   @include make-md-column(3);
   @include make-xs-column(3);
+
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .chat-users-title {

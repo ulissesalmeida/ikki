@@ -1,4 +1,20 @@
-<div class="chat-container row" data-chat>
+<div class='rooms-panel' data-rooms>
+  <div  class='panel-heading'>Rooms</div>
+
+  <div class='list-group'>
+    <%= for room <- @rooms do %>
+      <a href="#"
+         class="list-group-item"
+         data-room='{"id": <%= room.id %>, "name": "<%= room.name %>"}'>
+        <%= room.name %>
+      </a>
+    <% end %>
+  </div>
+</div>
+
+<div class="chat-container hidden" data-chat>
+  <h1 class='chat-room-name' data-room-name>Name</h1>
+  
   <div class='chat-messages-container'>
     <div class="chat-messages-board" data-chat-messages>
     </div>

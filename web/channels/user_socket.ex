@@ -2,7 +2,7 @@ defmodule Ikki.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "rooms:lobby", Ikki.RoomChannel
+  channel "rooms:*", Ikki.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

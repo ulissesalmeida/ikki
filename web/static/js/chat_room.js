@@ -2,10 +2,11 @@ const ENTER = 13
 const EMPTY = ""
 
 class ChatRoom {
-  constructor({roomId: roomId, socket: socket, user: user, context: context}) {
-    this.roomId = roomId
-    this.channel = socket.channel(`rooms:${roomId}`, { user: user })
+  constructor({room: room, socket: socket, user: user, context: context}) {
+    this.room = room
+    this.channel = socket.channel(`rooms:${room.id}`, { user: user })
     this.user = user
+    this.chatTitle = context.find('[data-room-name]')
     this.chatInput  = context.find('[data-chat-input]')
     this.chatForm = context.find('[data-chat-form]')
     this.messagesBoard = context.find('[data-chat-messages]')
@@ -16,6 +17,7 @@ class ChatRoom {
 
   connect() {
     this.channel.join()
+      .receive('ok', _payload => this.chatTitle.text(this.room.name) )
       .receive('error', error => console.log("Unabled to join", error))
   }
 

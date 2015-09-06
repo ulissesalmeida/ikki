@@ -39,10 +39,15 @@ form.link, form.button {
   height: 100%;
 }
 
+.chat-room-name {
+  font-size: $font-size-h3;
+  margin-top: 0;
+}
+
 .chat-messages-board {
   @include make-row();
 
-  height: 90%;
+  height: 85%;
   padding: 15px;
   background-color: #fff;
   border: 1px solid #ddd;
@@ -80,4 +85,11 @@ form.link, form.button {
 
 .chart-form-send-button {
   margin-left: 15px;
+}
+
+.rooms-panel {
+  @extend .panel;
+  @extend .panel-primary;
+
+  margin-top: 20px;
 }

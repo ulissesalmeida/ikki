@@ -1,8 +1,10 @@
 defmodule Ikki.RoomChannel do
   use Ikki.Web, :channel
+  alias Ikki.Room
+  alias Ikki.Repo
 
-  def join("rooms:lobby", payload, socket) do
-    if authorized?(payload) do
+  def join("rooms:" <> roomId, payload, socket) do
+    if authorized?(roomId) do
       socket = assign(socket, :user, payload["user"])
       send(self, :after_join)
       {:ok, socket}
@@ -18,7 +20,7 @@ defmodule Ikki.RoomChannel do
   end
 
   # It is also common to receive messages from the client and
-  # broadcast to everyone in the current topic (rooms:lobby).
+  # broadcast to everyone in the current topic.
   def handle_in("message:new", payload, socket) do
     broadcast socket, "message:new", payload
     {:noreply, socket}
@@ -40,7 +42,7 @@ defmodule Ikki.RoomChannel do
   end
 
   # Add authorization logic here as required.
-  defp authorized?(_payload) do
-    true
+  defp authorized?(roomId) do
+    Repo.get(Room, roomId)
   end
 end

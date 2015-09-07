@@ -22,6 +22,8 @@ import RoomsGate from "./rooms_gate"
 
 let chatView = $('[data-chat]')
 let roomsList = $('[data-rooms]')
-let user = `Anonymous ${Math.floor(Math.random() * 1000)}`
 
-new RoomsGate({socket: socket, user: user, roomsList: roomsList, chatView: chatView})
+if (roomsList.length) {
+  socket.connect({token: window.userToken})
+  new RoomsGate({socket: socket, roomsList: roomsList, chatView: chatView})
+}

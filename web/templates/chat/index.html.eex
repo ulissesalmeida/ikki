@@ -14,7 +14,7 @@
 
 <div class="chat-container hidden" data-chat>
   <h1 class='chat-room-name' data-room-name>Name</h1>
-  
+
   <div class='chat-messages-container'>
     <div class="chat-messages-board" data-chat-messages>
     </div>
@@ -30,3 +30,7 @@
     <h1 class='chat-users-title'>Users</h1>
   </div>
 </div>
+
+<script>
+  window.userToken = "<%= assigns[:user_token] %>";
+</script>

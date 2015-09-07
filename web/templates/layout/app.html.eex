@@ -14,11 +14,21 @@
   <body>
     <div class="container-fluid" role="main">
       <div class="header">
-        <img class='header-logo' src="<%= static_path(@conn, "/images/logo.png") %>" alt="Ikki logo" />
-        <h1>
-          Ikki
-          <small>A Web Chat written in Elixir using Phoenix</small>
-        </h1>
+        <div class="header-main">
+          <img class='header-logo' src="<%= static_path(@conn, "/images/logo.png") %>" alt="Ikki logo" />
+          <h1>
+            Ikki
+            <small>A Web Chat written in Elixir using Phoenix</small>
+          </h1>
+        </div>
+
+        <%= if current_user = current_user(@conn) do %>
+          <div class='header-current-user'>
+            <%= current_user %>
+
+            <%= link 'Sair', to: session_path(@conn, :signout), method: :delete %>
+          </div>
+        <% end %>
       </div>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>

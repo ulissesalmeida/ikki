@@ -19,8 +19,15 @@ defmodule Ikki.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket) do
-    {:ok, socket}
+  def connect(%{"token" => token}, socket) do
+    case Phoenix.Token.verify(socket, "user", token, max_age: 1209600) do
+      {:ok, email} ->
+        user_name = catch_user_name(email)
+        socket = assign(socket, :user, %{id: email, name: user_name })
+        {:ok, socket}
+      {:error, _} ->
+        :error
+    end
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
@@ -33,5 +40,11 @@ defmodule Ikki.UserSocket do
   #     Ikki.Endpoint.broadcast("users_socket:" <> user.id, "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
-  def id(_socket), do: nil
+  def id(socket), do: "users_socket:#{socket.assigns.user.id}"
+
+  defp catch_user_name(email) do
+    email
+      |> String.split("@")
+      |> List.first
+  end
 end

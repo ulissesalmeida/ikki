@@ -2,10 +2,9 @@ const ENTER = 13
 const EMPTY = ""
 
 class ChatRoom {
-  constructor({room: room, socket: socket, user: user, context: context}) {
+  constructor({room: room, socket: socket, context: context}) {
     this.room = room
-    this.channel = socket.channel(`rooms:${room.id}`, { user: user })
-    this.user = user
+    this.channel = socket.channel(`rooms:${room.id}`)
     this.chatTitle = context.find('[data-room-name]')
     this.chatInput  = context.find('[data-chat-input]')
     this.chatForm = context.find('[data-chat-form]')
@@ -38,21 +37,21 @@ class ChatRoom {
   submitMessage() {
     let message = $.trim(this.chatInput.val())
     if (message.length) {
-      this.channel.push("message:new", { user: this.user, body: message })
+      this.channel.push("message:new", {body: message})
     }
     this.chatInput.val(EMPTY)
     return false;
   }
 
   addNewUser({user: user}) {
-    this.usersList.append(`<p>${user}</p>`)
-    this.messagesBoard.append(`<p><i>${user} has joined the room</i></p>`)
+    this.usersList.append(`<p>${user.name}</p>`)
+    this.messagesBoard.append(`<p><i>${user.name} has joined the room</i></p>`)
   }
 
   addNewMessage({user: user, body: body }) {
     this.messagesBoard.append(`
       <p>
-        <i>${user} says:</i>
+        <i>${user.name} says:</i>
         <br/>
         ${body}
       </p>`

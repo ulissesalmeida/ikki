@@ -1,9 +1,8 @@
 import ChatRoom from "./chat_room"
 
 class RoomsGate {
-  constructor({socket: socket, user: user, roomsList: roomsList, chatView: chatView}) {
+  constructor({socket: socket, roomsList: roomsList, chatView: chatView}) {
     this.socket = socket
-    this.user = user
     this.roomsList = roomsList
     this.chatView = chatView
 
@@ -24,8 +23,7 @@ class RoomsGate {
   }
 
   joinRoom(roomData) {
-    let room = new ChatRoom({ room: roomData, socket: this.socket, user: this.user, context: this.chatView })
-    this.socket.connect({token: window.userToken})
+    let room = new ChatRoom({ room: roomData, socket: this.socket, context: this.chatView })
     room.connect()
     this.chatView.removeClass('hidden')
   }

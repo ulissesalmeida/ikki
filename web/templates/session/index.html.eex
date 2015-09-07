@@ -1,0 +1,14 @@
+<div class="jumbotron text-center">
+  <h1>Welcome!</h1>
+  <p>Please provide your e-mail to participate the chat:</p>
+
+  <%= form_tag(session_path(@conn, :signin)) do %>
+    <input name="email" type="email">
+    <input type="submit" value="Enter">
+  <% end %>
+
+  <small>
+    Hi! Don't worry, no e-mail or message here is persistent stored.
+    We won't send you any spam. :)
+  </small>
+</div>

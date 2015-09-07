@@ -10,7 +10,19 @@ form.link, form.button {
 
 .header {
   @include make-row();
+  display: flex;
+  align-items: flex-end;
   border-bottom: dashed 1px #eee;
+}
+
+.header-main {
+  @include make-md-column(9);
+}
+
+.header-current-user {
+  @include make-md-column(3);
+
+  text-align: right;
 }
 
 .header-logo {

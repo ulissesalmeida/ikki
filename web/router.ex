@@ -23,7 +23,11 @@ defmodule Ikki.Router do
   scope "/", Ikki do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", SessionController, :new
+    post "/session", SessionController, :signin
+    delete "/session", SessionController, :signout
+
+    get "/chat", ChatController, :index
   end
 
   scope "/admin", Ikki do

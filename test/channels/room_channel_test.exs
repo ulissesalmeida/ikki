@@ -5,27 +5,36 @@ defmodule Ikki.RoomChannelTest do
   alias Ikki.Repo
   alias Ikki.Room
 
+  @authenticated_user %{id: "java_user@java.com", name: "java_user" }
+
   setup do
     room = Repo.insert!(%Room{name: "Java"})
 
     {:ok, _, socket} =
-      socket()
-      |> subscribe_and_join(RoomChannel, "rooms:#{room.id}", %{"user" => "Anonymous 1"})
+      socket("users_socket:java_user@java.com", %{user: @authenticated_user})
+        |> subscribe_and_join(RoomChannel, "rooms:#{room.id}")
 
     {:ok, socket: socket, room: room}
   end
 
   test "join broadcasts a user has joined", %{room: room} do
     {:ok, _, socket} =
-      socket()
-      |> subscribe_and_join(RoomChannel, "rooms:#{room.id}", %{"user" => "Anonymous 2"})
+      socket("users_socket:java_user@java.com", %{user: @authenticated_user})
+        |> subscribe_and_join(RoomChannel, "rooms:#{room.id}")
 
-    assert_broadcast "user:joined", %{"user": "Anonymous 2"}
+    assert_broadcast "user:joined", %{user: @authenticated_user}
   end
 
   test "join fails with an invalid room" do
-    assert {:error, %{reason: "unauthorized"}} = socket()
-      |> subscribe_and_join(RoomChannel, "rooms:1234", %{"user" => "Anonymous 2"})
+    assert {:error, %{reason: "unauthorized"}} =
+      socket("users_socket:java_user@java.com", %{user: @authenticated_user})
+        |> subscribe_and_join(RoomChannel, "rooms:1234")
+  end
+
+  test "join fails without an user", %{room: room} do
+    assert {:error, %{reason: "unauthorized"}} =
+      socket()
+        |> subscribe_and_join(RoomChannel, "rooms:#{room.id}")
   end
 
   test "ping replies with status ok", %{socket: socket} do
@@ -34,8 +43,8 @@ defmodule Ikki.RoomChannelTest do
   end
 
   test "message:new broadcasts to rooms:lobby", %{socket: socket} do
-    push socket, "message:new", %{"user" => "Anonymous", "body" => "Hi!"}
-    assert_broadcast "message:new", %{"user" => "Anonymous", "body" => "Hi!"}
+    push socket, "message:new", %{"body" => "Hi!"}
+    assert_broadcast "message:new", %{body: "Hi!", user: @authenticated_user}
   end
 
   test "broadcasts are pushed to the client", %{socket: socket} do

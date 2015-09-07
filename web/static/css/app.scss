@@ -68,6 +68,20 @@ form.link, form.button {
   overflow-y: scroll;
 }
 
+.chat-message {
+  @include make-row();
+
+  margin-bottom: 15px;
+}
+
+.chat-message-avatar {
+  @include make-md-column(1);
+}
+
+.chat-message-body {
+  @include make-md-column(11);
+}
+
 .chat-users-container {
   @include make-md-column(3);
   @include make-xs-column(3);
@@ -80,6 +94,18 @@ form.link, form.button {
   font-size: $font-size-h4;
   margin-top: 0;
   margin-bottom: 20px;
+}
+
+.chat-user {
+  @include make-row();
+}
+
+.chat-user-avatar {
+  @include make-md-column(2);
+}
+
+.chat-user-body {
+  @include make-md-column(10);
 }
 
 .chat-form {

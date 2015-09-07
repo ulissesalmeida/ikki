@@ -20,10 +20,12 @@ import "deps/phoenix_html/web/static/js/phoenix_html"
 import socket from "./socket"
 import RoomsGate from "./rooms_gate"
 
-let chatView = $('[data-chat]')
-let roomsList = $('[data-rooms]')
+$(function() {
+  let chatView = $('[data-chat]')
+  let roomsList = $('[data-rooms]')
 
-if (roomsList.length) {
-  socket.connect({token: window.userToken})
-  new RoomsGate({socket: socket, roomsList: roomsList, chatView: chatView})
-}
+  if (roomsList.length) {
+    socket.connect({token: window.userToken})
+    new RoomsGate({socket: socket, roomsList: roomsList, chatView: chatView})
+  }
+})

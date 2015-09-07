@@ -44,20 +44,52 @@ class ChatRoom {
   }
 
   addNewUser({user: user}) {
-    this.usersList.append(`<p>${user.name}</p>`)
-    this.messagesBoard.append(`<p><i>${user.name} has joined the room</i></p>`)
+    let avatarMessage = this.gravatarURL(user.id, {s: 50})
+    let avatarList = this.gravatarURL(user.id, {s: 25})
+
+    this.usersList.append(`
+      <div class="chat-user">
+        <div class="chat-user-avatar">
+          <img src="${avatarList}"/>
+        </div>
+        <p class="chat-user-body">${user.name}</p>
+      </div>`
+    )
+    this.messagesBoard.append(`
+      <div class="chat-message">
+        <div class="chat-message-avatar">
+          <img src="${avatarMessage}"/>
+        </div>
+        <p class='chat-message-body'>
+          <i>${user.name} has joined the room</i>
+        </p>
+      </div>`
+    )
   }
 
   addNewMessage({user: user, body: body }) {
+    let avatar = this.gravatarURL(user.id, {s: 50})
+
     this.messagesBoard.append(`
-      <p>
-        <i>${user.name} says:</i>
-        <br/>
-        ${body}
-      </p>`
+      <div class="chat-message">
+        <div class="chat-message-avatar">
+          <img src="${avatar}"/>
+        </div>
+        <p class='chat-message-body'>
+          <strong>${user.name}</strong>
+          <br/>
+          ${body}
+        </p>
+      </div>`
     )
 
     this.messagesBoard.scrollTop(this.messagesBoard.prop('scrollHeight'))
+  }
+
+  gravatarURL(email, options) {
+    let hash = md5(email.toLowerCase())
+    let params = $.param(options)
+    return `//www.gravatar.com/avatar/${hash}?${params}`
   }
 }
 

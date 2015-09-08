@@ -16,8 +16,13 @@ class ChatRoom {
 
   connect() {
     this.channel.join()
-      .receive('ok', _payload => this.chatTitle.text(this.room.name) )
-      .receive('error', error => console.log("Unabled to join", error))
+      .receive('ok', _payload => {
+        this.chatTitle.text(this.room.name)
+        // Heroku drops the connection after 30 seconds, then we are sending
+        // ping every 20s to make the connection persistent.
+        window.setInterval(() => this.channel.push("ping"), 20 * 1000)
+      })
+      .receive('error', error => window.console.log("Unabled to join", error))
   }
 
   bindEvents() {

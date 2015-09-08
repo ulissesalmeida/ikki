@@ -12,12 +12,14 @@
   </head>
 
   <body>
-    <a href="https://github.com/ulissesalmeida/ikki"><img style="position: absolute; bottom: 0; right: 30px; border: 0; z-index: 1;" src="https://github.com/jamesflorentino/fork-ribbons/raw/master/ribbons/orange-black.png" alt="Fork me on GitHub"></a>
+    <a href="https://github.com/ulissesalmeida/ikki" target="_blank"><img style="position: absolute; bottom: 0; right: 30px; border: 0; z-index: 1;" src="https://github.com/jamesflorentino/fork-ribbons/raw/master/ribbons/orange-black.png" alt="Fork me on GitHub"></a>
 
     <div class="container-fluid" role="main">
       <div class="header">
         <div class="header-main">
-          <img class='header-logo' src="<%= static_path(@conn, "/images/logo.png") %>" alt="Ikki logo" />
+          <%= link to: "/" do %>
+            <img class='header-logo' src="<%= static_path(@conn, "/images/logo.png") %>" alt="Ikki logo" />
+          <% end %>
           <h1>
             Ikki
             <small>A Web Chat written in Elixir using Phoenix</small>
